@@ -9,6 +9,14 @@ class LikeSerializer(serializers.ModelSerializer):
         model = Like
         fields = '__all__'
 
+
+# class WhoLikeSerializer(serializers.ModelSerializer):
+
+#     class Meta:
+#         model = Like
+#         fields = '__all__'
+
+
 class ReviewSerializer(serializers.ModelSerializer):
 
     class Meta:
@@ -23,7 +31,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation.pop('id')
+        # representation.pop('id')
         representation['user'] = f'{instance.user}'
         representation['like'] = instance.like.filter(like=True).count()
         return representation

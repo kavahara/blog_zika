@@ -2,10 +2,11 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+# from rest_framework import generics
 
 from applications.review.models import Review, Like
 from applications.review.permissions import IsReviewAuthor
-from applications.review.serializers import ReviewSerializer
+from applications.review.serializers import ReviewSerializer#, WhoLikeSerializer
 
 
 class ReviewViewSet(viewsets.ModelViewSet):
@@ -35,3 +36,8 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
     def get_serializer_context(self):
         return {'request': self.request}
+
+
+# class WhoLikeListView(generics.ListAPIView):
+#     queryset = Like.objects.all()
+#     serializer_class = WhoLikeSerializer
