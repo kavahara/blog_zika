@@ -72,7 +72,7 @@ class ForgotPasswordSerializer(serializers.Serializer):
         user = User.objects.get(email=email)
         user.create_activation_code()
         send_mail('Восстановление пароля',
-                  f'Код для восстановления: скопируйте и вставьте в конец ссылки (в postman) --> /auth/forgot_password_complete/{user.activation_code}/',
+                  f'Код для восстановления: скопируйте и вставьте в конец ссылки (в postman) --> /forgot_password_complete/{user.activation_code}/',
                   EMAIL_HOST_USER,
                   [user.email])
 

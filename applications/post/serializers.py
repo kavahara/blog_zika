@@ -1,29 +1,29 @@
 from rest_framework import serializers
-from applications.post.models import Category, Post
+from applications.post.models import Post
 from applications.review.serializers import ReviewSerializer
 
 
-class CategorySerializer(serializers.ModelSerializer):
+# class CategorySerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = Category
-        fields = ('title',)
+#     class Meta:
+#         model = Category
+#         fields = ('title',)
 
 class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ('id', 'category', 'title', 'content')
+        fields = ('id', 'title', 'content')
 
     def create(self, validated_data):
         request = self.context.get('request')
-        validated_data['author_id'] = request.user.id
+        validated_data['author'] = request.user
         question = Post.objects.create(**validated_data)
         return question
 
     def to_representation(self, instance):
         representation = super().to_representation(instance)
-        representation['category'] = instance.category.title
+        # representation['category'] = instance.category.title
         representation['author'] = instance.author.email
         total_rating = [i.rating for i in instance.review.all()]
         if len(total_rating) > 0:

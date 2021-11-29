@@ -1,10 +1,10 @@
-from rest_framework import generics, pagination
-from rest_framework.views import APIView
-from applications.post.models import Category, Post
-from applications.post.serializers import CategorySerializer, PostSerializer, PostDetailSerializer
+from rest_framework import generics #pagination
+# from rest_framework.views import APIView
+from applications.post.models import Post
+from applications.post.serializers import PostSerializer, PostDetailSerializer
 from applications.post.permissions import IsPostAuthor
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
+# from rest_framework.response import Response
 from rest_framework import filters
 from rest_framework.pagination import PageNumberPagination
 from django.db.models import Q
@@ -12,9 +12,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 from django_filters import rest_framework
 
 
-class CategoryListView(generics.ListAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
+# class CategoryListView(generics.ListAPIView):
+#     queryset = Category.objects.all()
+#     serializer_class = CategorySerializer
 
 
 class PostListView(generics.ListAPIView):
@@ -26,15 +26,15 @@ class PostListView(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-        category = self.request.GET.get('category')
+        # category = self.request.GET.get('category')
         search = self.request.GET.get('q')
         if search:
             queryset = queryset.filter(
                 Q(title__icontains=search)
             )
-        if category is not None:
-            queryset = queryset.filter(category__title__icontains=category)
-        print(category)
+        # if category is not None:
+        #     queryset = queryset.filter(category__title__icontains=category)
+        # print(category)
         return queryset
 
 

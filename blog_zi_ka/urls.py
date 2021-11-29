@@ -18,5 +18,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('applications.account.urls')),
     path('', include('applications.post.urls')),
-    path('', include('applications.review.urls')),
+    path('review/c', include('applications.review.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

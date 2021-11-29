@@ -24,7 +24,7 @@ class ReviewViewSet(viewsets.ModelViewSet):
 
 
     @action(detail=True, methods=['POST'])
-    def Like(self, request, *args, **kwargs):
+    def like(self, request, *args, **kwargs):
         review = self.get_object()
         like_obj, _ = Like.objects.get_or_create(review=review, user=request.user)
         like_obj.like = not like_obj.like
